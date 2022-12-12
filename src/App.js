@@ -1,7 +1,14 @@
+import { Routes, Route } from "react-router-dom";
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
+
 function App() {
   return (
     <div className="App">
-      <h2>BUDDY</h2>
+      <Routes>
+        {/* <Route index element={<Login/>}/> */}
+        <Route index element={<Register/>}/>
+      </Routes>
     </div>
   );
 }
