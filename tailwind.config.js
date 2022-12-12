@@ -10,6 +10,7 @@ module.exports = {
         'isGray20': '#292D32',
         'isGray25': '#B0BABF',
         'isGray30': '#ECEDED',
+        'isGray35': '#DDE2E4',
         'isOrange': '#FF8600',
         'isDarkGray': '#84919A',
         'isLightGray' : '#F8FAFC',

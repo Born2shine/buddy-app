@@ -11,6 +11,6 @@ export {
   IoMdMail,
   FaUnlockAlt,
   FaRegComment,
-  AiFillEyeInvisible
+  AiFillEyeInvisible,
 };
 

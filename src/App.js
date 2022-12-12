@@ -6,8 +6,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        {/* <Route index element={<Login/>}/> */}
-        <Route index element={<Register/>}/>
+        <Route index element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
       </Routes>
     </div>
   );
