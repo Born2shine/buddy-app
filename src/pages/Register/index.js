@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import * as IMAGES from "../../assets";
 import * as ICONS from "../../components/icons";
 import EmailRegistration from "../../components/registration/EmailRegistration";
+import EmailVerified from "../../components/registration/EmailVerified";
 import RegistrationOption from "../../components/registration/RegistrationOption";
+import VerifyEmail from "../../components/registration/VerifyEmail";
+import EmailConfirmation from './../../components/registration/EmailConfirmation';
 
 export const Register = () => {
   const [emailSignUp, setEmailSignUp] = useState(false);
@@ -58,10 +61,13 @@ export const Register = () => {
           </div>
         </aside>
         <aside className='md:w-1/2'>
-            {
-                emailSignUp && ( <EmailRegistration/>)
-            }
-         {!emailSignUp && <RegistrationOption handleSignUpOption={handleSignUpOption}/>}
+          {emailSignUp && <EmailRegistration />}
+          {!emailSignUp && (
+            <RegistrationOption handleSignUpOption={handleSignUpOption} />
+          )}
+          {/* <EmailConfirmation/> */}
+          {/* <VerifyEmail/> */}
+          {/* <EmailVerified/> */}
         </aside>
       </section>
     </main>

@@ -107,8 +107,7 @@ const EmailRegistration = () => {
             </p>
 
             <p className='mt-10 text-[14px] text-isGray'>
-              Already have an account?
-              <Link to='/login' className='text-isOrange'>
+              Already have an account? <Link to='/' className='text-isOrange'>
                 Login
               </Link>
             </p>

@@ -106,8 +106,7 @@ export const Login = () => {
                   </button>
                 </div>
                 <p className='text-[14px] mt-10 text-isGray'>
-                  By clicking the button above, you agree to our
-                  <Link to='#' className='text-isOrange'>
+                  By clicking the button above, you agree to our <Link to='#' className='text-isOrange'>
                     Terms of Service
                   </Link> and <Link to='#' className='text-isOrange'>
                     Privacy Policy
