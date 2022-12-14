@@ -14,7 +14,7 @@ export const Register = () => {
   const handleSignUpOption = () => setEmailSignUp(true);
 
   return (
-    <main className='bg-isLightGray'>
+    <main className='bg-isLightGray w-screen h-screen'>
       <section className='w-screen h-screen flex'>
         <aside className='hidden w-1/2 bg-white md:block'>
           <div className='mx-32 pt-14'>
