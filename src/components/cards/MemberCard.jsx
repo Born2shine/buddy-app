@@ -3,7 +3,7 @@ import * as ICONS from "../../components/icons";
 
 const MemberCard = ({image, name, username, total }) => {
   return (
-    <div className='border rounded-lg p-3 px-5 text-center'>
+    <div className='border rounded-lg p-3 px-5 text-center cursor-pointer'>
       <img
         className='w-10 h-10 rounded-full mx-auto'
         src={image}
