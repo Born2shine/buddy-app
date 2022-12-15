@@ -2,10 +2,21 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import * as IMAGES from "../../assets";
 import * as ICONS from "../../components/icons";
+import { logout, resetAuth } from "../../redux/slice/auth/authSlice";
 import { PATH } from './../../constants/Routes';
+import { useDispatch } from 'react-redux';
+import { flashMessage as flash} from './../../utils/flash/index';
 
 const SideBar = ({sideNavOpen, handleMenuBtn}) => {
     const location = useLocation()
+    const dispatch = useDispatch()
+
+    const logoutHandler = async () => {
+      dispatch(resetAuth());
+      dispatch(logout());
+      flash("success", "logged out successfully")
+    };
+  
 
   return (
     <section
@@ -93,7 +104,7 @@ const SideBar = ({sideNavOpen, handleMenuBtn}) => {
             />
             <h4 className='font-semibold'>Theresa milly</h4>
             <span className='text-[14px] text-isDarkGray'>Influencer</span>
-            <button className='flex items-center justify-center space-x-1 bg-[rgba(255,134,0,0.16)] p-1 text-isOrange rounded-lg w-full text-center mt-3 text-[14px]'>
+            <button onClick={logoutHandler} className='flex items-center justify-center space-x-1 bg-[rgba(255,134,0,0.16)] p-1 text-isOrange rounded-lg w-full text-center mt-3 text-[14px]'>
               <span>
                 <ICONS.FaSignOutAlt />
               </span>

@@ -6,6 +6,7 @@ import Overview from "./pages/Dashboard/Overview";
 import Message from './pages/Dashboard/Message';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from "./components/middleware/ProtectedRoute";
 
 function App() {
   return (
@@ -14,8 +15,10 @@ function App() {
         <Route index element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/account" element={<Main/>}>
-          <Route path="overview" element={<Overview/>} />
-          <Route path="messages" element={<Message/>} />
+          <Route element={<ProtectedRoute/>}>
+            <Route path="overview" element={<Overview/>} />
+            <Route path="messages" element={<Message/>} />
+          </Route>
         </Route>
       </Routes>
 

@@ -46,7 +46,7 @@ export const Login = () => {
       }
     }
     dispatch(resetStatus())
-  },[isSuccess,isError])
+  },[user, isSuccess,isError])
 
   return (
     <main className='bg-isLightGray w-screen h-screen'>
