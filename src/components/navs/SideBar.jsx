@@ -3,20 +3,20 @@ import { Link, useLocation } from "react-router-dom";
 import * as IMAGES from "../../assets";
 import * as ICONS from "../../components/icons";
 import { logout, resetAuth } from "../../redux/slice/auth/authSlice";
-import { PATH } from './../../constants/Routes';
-import { useDispatch } from 'react-redux';
-import { flashMessage as flash} from './../../utils/flash/index';
+import { PATH } from "./../../constants/Routes";
+import { useDispatch, useSelector } from "react-redux";
+import { flashMessage as flash } from "./../../utils/flash/index";
 
-const SideBar = ({sideNavOpen, handleMenuBtn}) => {
-    const location = useLocation()
-    const dispatch = useDispatch()
+const SideBar = ({ sideNavOpen, handleMenuBtn }) => {
+  const { user, isError, isSuccess, isLoading } = useSelector((state) => state.auth);
+  const location = useLocation();
+  const dispatch = useDispatch();
 
-    const logoutHandler = async () => {
-      dispatch(resetAuth());
-      dispatch(logout());
-      flash("success", "logged out successfully")
-    };
-  
+  const logoutHandler = async () => {
+    dispatch(resetAuth());
+    dispatch(logout());
+    flash("success", "logged out successfully");
+  };
 
   return (
     <section
@@ -36,16 +36,24 @@ const SideBar = ({sideNavOpen, handleMenuBtn}) => {
         </Link>
         <nav className='mt-12'>
           <ul className='px-'>
-            <li className={`${location.pathname === PATH.DASHBOARD ? 'bg-white shadow-md text-isOrange' : ''} relative text-isGray`}>
-              <Link to="/account/overview" className='flex items-center space-x-2 px-4 py-1 text-[15px]'>
+            <li
+              className={`${
+                location.pathname === PATH.DASHBOARD
+                  ? "bg-white shadow-md text-isOrange"
+                  : ""
+              } relative text-isGray`}
+            >
+              <Link
+                to='/account/overview'
+                className='flex items-center space-x-2 px-4 py-1 text-[15px]'
+              >
                 <span>
                   <ICONS.BiUser />
                 </span>
                 <span className='font-semibold'> My Portfolio</span>
-                {
-                    location.pathname === PATH.DASHBOARD && 
-                <span className='w-1 h-7 -left-6 absolute content-none bg-isOrange rounded-r-lg'></span>
-                }
+                {location.pathname === PATH.DASHBOARD && (
+                  <span className='w-1 h-7 -left-6 absolute content-none bg-isOrange rounded-r-lg'></span>
+                )}
               </Link>
             </li>
             <li className='mt-6 text-gray-500 hover:bg-white hover:shadow-md hover:text-isOrange'>
@@ -56,7 +64,13 @@ const SideBar = ({sideNavOpen, handleMenuBtn}) => {
                 <span className='font-semibold'> My Group</span>
               </Link>
             </li>
-            <li className={`${location.pathname === PATH.MESSAGES ? 'bg-white shadow-md text-isOrange' : ''} relative text-isGray mt-6 hover:bg-white hover:shadow-md hover:text-isOrange`}>
+            <li
+              className={`${
+                location.pathname === PATH.MESSAGES
+                  ? "bg-white shadow-md text-isOrange"
+                  : ""
+              } relative text-isGray mt-6 hover:bg-white hover:shadow-md hover:text-isOrange`}
+            >
               <Link
                 to='/account/messages'
                 className='flex items-center space-x-2 px-4 py-1 text-[15px]'
@@ -65,10 +79,9 @@ const SideBar = ({sideNavOpen, handleMenuBtn}) => {
                   <ICONS.FaRegEnvelope />
                 </span>
                 <span className='font-semibold'> Messages </span>
-                {
-                location.pathname === PATH.MESSAGES && 
-                <span className='w-1 h-7 -left-6 absolute content-none bg-isOrange rounded-r-lg'></span>
-                }
+                {location.pathname === PATH.MESSAGES && (
+                  <span className='w-1 h-7 -left-6 absolute content-none bg-isOrange rounded-r-lg'></span>
+                )}
               </Link>
             </li>
             <li className='mt-6 text-gray-500 hover:bg-white hover:shadow-md hover:text-isOrange'>
@@ -102,9 +115,12 @@ const SideBar = ({sideNavOpen, handleMenuBtn}) => {
               src={IMAGES.AVATAR_2}
               alt=''
             />
-            <h4 className='font-semibold'>Theresa milly</h4>
+            <h4 className='font-semibold capitalize'>{`${user?.first_name + ' ' + user?.last_name}`}</h4>
             <span className='text-[14px] text-isDarkGray'>Influencer</span>
-            <button onClick={logoutHandler} className='flex items-center justify-center space-x-1 bg-[rgba(255,134,0,0.16)] p-1 text-isOrange rounded-lg w-full text-center mt-3 text-[14px]'>
+            <button
+              onClick={logoutHandler}
+              className='flex items-center justify-center space-x-1 bg-[rgba(255,134,0,0.16)] p-1 text-isOrange rounded-lg w-full text-center mt-3 text-[14px]'
+            >
               <span>
                 <ICONS.FaSignOutAlt />
               </span>

@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as IMAGES from "../../assets";
@@ -9,18 +9,21 @@ import { loginSchema } from "../../utils/validators/schema";
 
 export const Login = () => {
   const { user, isError, isSuccess } = useSelector((state) => state.auth);
+  const [showPassword, setShowPassword] = useState(false)
 
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname | "/";
 
+  // handle form submit
   const onSubmit = async (values, { resetForm, setSubmitting }) => {
     dispatch(login(values))
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setSubmitting(false)
   };
 
+  // initialize form inputs
   const {
     values,
     errors,
@@ -38,10 +41,10 @@ export const Login = () => {
     onSubmit,
   });
 
+  // redirect if authenticated
   useEffect(() => {
     if (isSuccess || user) {
       if (user?.token) {
-        // dispatch(getUserProfile());
         navigate("/account/overview", { state: { from: from }, replace: true });
       }
     }
@@ -150,7 +153,7 @@ export const Login = () => {
                         <ICONS.FaUnlockAlt />
                       </span>
                       <input
-                        type='password'
+                        type={`${showPassword ? 'text' : 'password'}`}
                         name='password'
                         id='password'
                         value={values.password}
@@ -168,8 +171,10 @@ export const Login = () => {
                           {errors.password}
                         </span>
                       )}
-                      <span className='absolute right-3 top-3 text-isGray25 cursor-pointer'>
-                        <ICONS.AiFillEyeInvisible />
+                      <span className='absolute right-3 top-3 text-isGray25 cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
+                      {
+                        showPassword ? <ICONS.AiFillEye /> : <ICONS.AiFillEyeInvisible />
+                      }
                       </span>
                     </div>
                   </div>
@@ -184,15 +189,10 @@ export const Login = () => {
                   </div>
                 </form>
                 <p className='text-[14px] mt-10 text-isGray'>
-                  By clicking the button above, you agree to our{" "}
-                  <Link to='#' className='text-isOrange'>
-                    Terms of Service
-                  </Link>
-                  and
-                  <Link to='#' className='text-isOrange'>
+                  By clicking the button above, you agree to our <Link to='#' className='text-isOrange'> Terms of Service
+                  </Link> and <Link to='#' className='text-isOrange'>
                     Privacy Policy
-                  </Link>
-                  .
+                  </Link>.
                 </p>
 
                 <p className='mt-10 text-[14px] text-isGray'>

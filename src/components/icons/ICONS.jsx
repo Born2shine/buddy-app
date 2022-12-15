@@ -2,7 +2,7 @@ import { FiMenu, FiUsers, FiSettings, FiInstagram, FiBell } from "react-icons/fi
 import { BsCheck2, BsLinkedin, BsPencil } from 'react-icons/bs'
 import { FaUser, FaUnlockAlt, FaRegComment, FaRegEnvelope, FaSignOutAlt, FaFacebookF } from 'react-icons/fa'
 import { IoMdMail } from "react-icons/io"
-import { AiFillEyeInvisible, AiOutlinePlus } from "react-icons/ai"
+import { AiFillEyeInvisible, AiFillEye, AiOutlinePlus } from "react-icons/ai"
 import { BiUser, BiDollarCircle, BiSearch, BiCheck, BiCamera} from "react-icons/bi"
 import { AiOutlineRise, AiOutlineUserAdd, AiTwotoneHeart, AiOutlineArrowDown, AiOutlineArrowUp, AiFillLinkedin } from "react-icons/ai"
 import { MdNotifications, MdMenu, MdClose, MdPhone } from "react-icons/md"
@@ -21,6 +21,7 @@ export {
   FaUnlockAlt,
   FaRegComment,
   AiFillEyeInvisible,
+  AiFillEye,
   BiUser,
   FiUsers,
   FaRegEnvelope,
