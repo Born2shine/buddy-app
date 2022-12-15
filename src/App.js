@@ -4,6 +4,8 @@ import { Register } from "./pages/Register";
 import Main from './pages/Dashboard/Main';
 import Overview from "./pages/Dashboard/Overview";
 import Message from './pages/Dashboard/Message';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -16,6 +18,9 @@ function App() {
           <Route path="messages" element={<Message/>} />
         </Route>
       </Routes>
+
+      {/* flash message */}
+      <ToastContainer theme="colored" />
     </div>
   );
 }

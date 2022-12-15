@@ -31,8 +31,7 @@ const EmailConfirmation = () => {
               Confirm Email
             </button>
             <p className='mt-10 text-[14px] text-isGray'>
-              Didn’t get the mail?
-              <span className='text-isOrange'>
+              Didn’t get the mail? <span className='text-isOrange'>
                 <span>Resend</span>
               </span>
             </p>

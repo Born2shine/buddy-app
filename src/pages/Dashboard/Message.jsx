@@ -7,7 +7,7 @@ const Message = () => {
     const [activeTab, setActiveTab] = useState('contact')
   return (
     <div className='h-screen md:flex md:justify-between'>
-      <aside className={`bg-[#EEE] p-4 rounded-[16px] fixed w-[90vw] md:w-[21%] ${activeTab == 'contact' ? '' : 'hidden'} md:block`}>
+      <aside className={`bg-[#EEE] p-4 rounded-[16px] fixed w-[90vw] md:w-[21%] ${activeTab === 'contact' ? '' : 'hidden'} md:block`}>
         <div className='flex justify-between'>
           <div className='flex items-center space-x-2'>
             <img
@@ -95,7 +95,7 @@ const Message = () => {
           />
         </div>
       </aside>
-      <aside className={`h-screen fixed w-[90vw] md:w-[55%] md:ml-[22%] ${activeTab == 'chat' ? '' : 'hidden'} md:block`}>
+      <aside className={`h-screen fixed w-[90vw] md:w-[55%] md:ml-[22%] ${activeTab === 'chat' ? '' : 'hidden'} md:block`}>
         <div className="flex items-center justify-between border-b-2 pb-2">
             <div className="flex items-center space-x-2">
                 <img className="w-12 h-12 rounded-full" src={IMAGES.AVATAR_1} alt="" />
@@ -161,9 +161,9 @@ const Message = () => {
         </div>
       </aside>
       <nav className='flex justify-around absolute left-0 bottom-0 bg-white w-[100vw] p-2 rounded-t-[20px] md:hidden'>
-        <span className="hover:bg-isOrange hover:text-white p-2" onClick={() => setActiveTab('contact')}><ICONS.FiUsers/></span>
+        <span className={`${activeTab === 'contact' && 'bg-isOrange text-white'} hover:bg-isOrange hover:text-white p-2`} onClick={() => setActiveTab('contact')}><ICONS.FiUsers/></span>
         <span className="hover:bg-isOrange hover:text-white p-2"><ICONS.MdPhone/></span>
-        <span className="hover:bg-isOrange hover:text-white p-2" onClick={() => setActiveTab('chat')}><ICONS.FaRegComment/></span>
+        <span className={`${activeTab === 'chat' && 'bg-isOrange text-white'} hover:bg-isOrange hover:text-white p-2`} onClick={() => setActiveTab('chat')}><ICONS.FaRegComment/></span>
         <span className="hover:bg-isOrange hover:text-white p-2"><ICONS.BiCamera/></span>
       </nav>
     </div>

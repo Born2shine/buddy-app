@@ -1,9 +1,53 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as IMAGES from "../../assets";
 import * as ICONS from "../../components/icons";
+import { login, resetStatus } from "../../redux/slice/auth/authSlice";
+import { loginSchema } from "../../utils/validators/schema";
 
 export const Login = () => {
+  const { user, isError, isSuccess } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname | "/";
+
+  const onSubmit = async (values, { resetForm, setSubmitting }) => {
+    dispatch(login(values))
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setSubmitting(false)
+  };
+
+  const {
+    values,
+    errors,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    touched,
+    isSubmitting,
+  } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: loginSchema,
+    onSubmit,
+  });
+
+  useEffect(() => {
+    if (isSuccess || user) {
+      if (user?.token) {
+        // dispatch(getUserProfile());
+        navigate("/account/overview", { state: { from: from }, replace: true });
+      }
+    }
+    dispatch(resetStatus())
+  },[isSuccess,isError])
+
   return (
     <main className='bg-isLightGray w-screen h-screen'>
       <section className='w-screen h-screen flex'>
@@ -63,59 +107,97 @@ export const Login = () => {
                 Proceed to login to your account
               </p>
               <div className='mt-2'>
-                <div className='mt-2'>
-                  <label
-                    htmlFor='last-name'
-                    className='text-isGray mb-[2px] block'
-                  >
-                    Email
-                  </label>
-                  <div className='relative'>
-                    <span className='absolute top-3 left-2 text-isGray25'>
-                      <ICONS.IoMdMail />
-                    </span>
-                    <input
-                      type='email'
-                      placeholder='Email'
-                      className='border focus:outline-none focus:border-isOrange p-2 px-8 rounded w-full text-[14px]'
-                    />
+                <form onSubmit={handleSubmit}>
+                  <div className='mt-2'>
+                    <label
+                      htmlFor='last-name'
+                      className='text-isGray mb-[2px] block'
+                    >
+                      Email
+                    </label>
+                    <div className='relative'>
+                      <span className='absolute top-3 left-2 text-isGray25'>
+                        <ICONS.IoMdMail />
+                      </span>
+                      <input
+                        // type='email'
+                        placeholder='Email'
+                        name='email'
+                        id='email'
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={`border focus:outline-none ${
+                          errors.email && touched.email && "border-red-600"
+                        } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
+                      />
+                      {errors.email && touched.email && (
+                        <span className='text-sm font-thin text-red-600'>
+                          {errors.email}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div className='mt-3'>
-                <label
-                    htmlFor='last-name'
-                    className='text-isGray mb-[2px] block'
-                  >
-                    Password
-                  </label>
-                  <div className='relative'>
-                    <span className='absolute top-3 left-2 text-isGray25'>
-                      <ICONS.FaUnlockAlt />
-                    </span>
-                    <input
-                    type='password'
-                    placeholder='Password'
-                    className='border focus:outline-none focus:border-isOrange p-2 px-8 rounded w-full text-[14px]'
-                  />
-                  <span className="absolute right-3 top-3 text-isGray25 cursor-pointer"><ICONS.AiFillEyeInvisible/></span>
+                  <div className='mt-3'>
+                    <label
+                      htmlFor='last-name'
+                      className='text-isGray mb-[2px] block'
+                    >
+                      Password
+                    </label>
+                    <div className='relative'>
+                      <span className='absolute top-3 left-2 text-isGray25'>
+                        <ICONS.FaUnlockAlt />
+                      </span>
+                      <input
+                        type='password'
+                        name='password'
+                        id='password'
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder='Password'
+                        className={`border focus:outline-none ${
+                          errors.password &&
+                          touched.password &&
+                          "border-red-600"
+                        } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
+                      />
+                      {errors.password && touched.password && (
+                        <span className='text-sm font-thin text-red-600'>
+                          {errors.password}
+                        </span>
+                      )}
+                      <span className='absolute right-3 top-3 text-isGray25 cursor-pointer'>
+                        <ICONS.AiFillEyeInvisible />
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className='mt-8'>
-                  <button className='w-full bg-isGray30 p-3 text-isGray25 hover:bg-isOrange hover:text-white rounded-md text-[14px]'>
-                    Login
-                  </button>
-                </div>
+                  <div className='mt-8'>
+                    <button
+                      type='submit'
+                      className='w-full bg-isGray30 p-3 text-isGray25 hover:bg-isOrange hover:text-white rounded-md text-[14px]'
+                      disabled={isSubmitting && true}
+                    >
+                      {isSubmitting ? "Loading..." : "Login"}
+                    </button>
+                  </div>
+                </form>
                 <p className='text-[14px] mt-10 text-isGray'>
-                  By clicking the button above, you agree to our <Link to='#' className='text-isOrange'>
+                  By clicking the button above, you agree to our{" "}
+                  <Link to='#' className='text-isOrange'>
                     Terms of Service
-                  </Link> and <Link to='#' className='text-isOrange'>
+                  </Link>
+                  and
+                  <Link to='#' className='text-isOrange'>
                     Privacy Policy
                   </Link>
                   .
                 </p>
 
                 <p className='mt-10 text-[14px] text-isGray'>
-                  Don't have an account? <Link to='/register' className='text-isOrange'>
+                  Don't have an account?
+                  <Link to='/register' className='text-isOrange'>
                     Register
                   </Link>
                 </p>
