@@ -107,7 +107,7 @@ const Message = () => {
                 <span><ICONS.FiBell/></span>
             </div>
         </div>
-        <div className="mt-6 md:mx-5 max-h-[65%] overflow-y-scroll">
+        <div className="mt-6 md:mx-5 max-h-[58%] overflow-y-scroll md:max-h-[78%]">
 
             {/* single chat */}
             <div className="single-chat">
@@ -132,7 +132,7 @@ const Message = () => {
              {/* end single chat */}
 
             {/* single chat */}
-            <div className="single-chat mt-6">
+            <div className="single-chat mt-6 mb-">
                 <div className="flex items-end space-x-2 md:w-3/6">
                     <img src={IMAGES.AVATAR_1} className="w-5 h-5 rounded-full" alt="" />
                     <div className="bg-isGray35 p-2.5 rounded-lg text-sm font-thin">Ok, I will just sent it here. Plz be sure to fill the details by today end of the day.</div>
@@ -150,13 +150,21 @@ const Message = () => {
                     </div>
                 </div>
 
-                <div className="relative mt-6 text-[#D9D9D9] text-sm font-thin text-center">
-                    <span className="w-[38%] md:w-[45%] h-[1px] bg-[#D9D9D9] content-none absolute left-0 top-3"></span>
-                    Yesterday
-                    <span className="w-[38%] md:w-[45%] h-[1px] bg-[#D9D9D9] content-none absolute right-0 top-3"></span>
-                </div>
             </div>
              {/* end single chat */}
+
+            <div className="bg-[#D9D9D9] w-full p-3 flex space-x-3 absolute bottom-32">
+              <div className="flex relative w-[100%]">
+                <span className="speaker absolute text-[20px] top-1.5 left-2 text-isGray cursor-pointer md:top-2 md:left-3 md:text-[24px]"><ICONS.MdOutlineKeyboardVoice/></span>
+                <input type="text" name="" id="" placeholder="Write Something..." className="p-[10px] text-xs font-thin focus:outline-none rounded-full w-full pl-8 md:p-3 md:pl-10 md:text-[15px]"/>
+                <div className="flex space-x-1 absolute right-3 top-2 md:top-3 md:right-4 text-isGray md:text-[18px]">
+                  <span className="cursor-pointer"><ICONS.ImAttachment/></span>
+                  <span className="cursor-pointer"><ICONS.AiOutlineCamera/></span>
+                  <span className="cursor-pointer"><ICONS.BsEmojiSmile/></span>
+                </div>
+              </div>
+              <span className="bg-isOrange text-white p-2 rounded-full rotate-90 cursor-pointer md:w-10 md:h- md:grid md:place-content-center"><ICONS.HiPaperAirplane/></span>
+            </div>
 
         </div>
       </aside>
