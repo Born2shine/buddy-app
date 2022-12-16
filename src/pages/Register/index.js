@@ -7,9 +7,11 @@ import EmailVerified from "../../components/registration/EmailVerified";
 import RegistrationOption from "../../components/registration/RegistrationOption";
 import VerifyEmail from "../../components/registration/VerifyEmail";
 import EmailConfirmation from './../../components/registration/EmailConfirmation';
+import { useSelector } from 'react-redux';
 
 export const Register = () => {
   const [emailSignUp, setEmailSignUp] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   const handleSignUpOption = () => setEmailSignUp(true);
 
@@ -61,13 +63,18 @@ export const Register = () => {
           </div>
         </aside>
         <aside className='md:w-1/2'>
-          {emailSignUp && <EmailRegistration />}
-          {!emailSignUp && (
+          {emailSignUp && !user?.isRegistered && !user?.isVerifying && <EmailRegistration />}
+          {!emailSignUp && !user?.isRegistered && !user?.isVerifying && (
             <RegistrationOption handleSignUpOption={handleSignUpOption} />
           )}
-          {/* <EmailConfirmation/> */}
-          {/* <VerifyEmail/> */}
-          {/* <EmailVerified/> */}
+          { user?.otp && user?.isConfirmingEmail && !user?.isVerifying && 
+            <EmailConfirmation/>
+          }
+          {
+            user?.otp && user?.isConfirmingEmail && user?.isVerifying &&
+             <VerifyEmail/> 
+          }
+         {user?.accountVerified && <EmailVerified/>}
         </aside>
       </section>
     </main>

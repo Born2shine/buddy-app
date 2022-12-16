@@ -115,7 +115,7 @@ const SideBar = ({ sideNavOpen, handleMenuBtn }) => {
               src={IMAGES.AVATAR_2}
               alt=''
             />
-            <h4 className='font-semibold capitalize'>{`${user?.first_name + ' ' + user?.last_name}`}</h4>
+            <h4 className='font-semibold capitalize'>{`${(user?.first_name && user?.last_name) ? (user?.first_name + ' ' + user?.last_name) : 'John Doe'}`}</h4>
             <span className='text-[14px] text-isDarkGray'>Influencer</span>
             <button
               onClick={logoutHandler}

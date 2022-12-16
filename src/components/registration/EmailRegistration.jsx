@@ -1,9 +1,60 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as IMAGES from "../../assets";
 import * as ICONS from "../../components/icons";
+import { registrationSchema } from "../../utils/validators/schema";
+import { useDispatch, useSelector } from "react-redux";
+import { register, resetStatus, setEmail } from "../../redux/slice/auth/authSlice";
 
 const EmailRegistration = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const { user, isError, isSuccess } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname | "/";
+
+  // handle form submit
+  const onSubmit = async (values, { resetForm, setSubmitting }) => {
+    dispatch(register(values))
+    dispatch(setEmail(values.email))
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setSubmitting(false);
+  };
+
+  // initialize form inputs
+  const {
+    values,
+    errors,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    touched,
+    isSubmitting,
+  } = useFormik({
+    initialValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+    },
+    validationSchema: registrationSchema,
+    onSubmit,
+  });
+
+  // redirect if authenticated
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setEmail(values.email))
+      if (user?.token) {
+        // navigate("/account/overview", { state: { from: from }, replace: true });
+      }
+    }
+    dispatch(resetStatus())
+  },[user, isSuccess, isError])
+
   return (
     <div>
       <div className='py-6 px-5 md:hidden'>
@@ -18,6 +69,7 @@ const EmailRegistration = () => {
             Proceed to create account and setup your organization
           </p>
           <div className='mt-2'>
+            <form onSubmit={handleSubmit}>
             <div className='flex gap-4'>
               <div>
                 <label
@@ -32,9 +84,23 @@ const EmailRegistration = () => {
                   </span>
                   <input
                     type='text'
+                    name='first_name'
+                    id='first_name'
+                    value={values.first_name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     placeholder='First Name'
-                    className={`border focus:border-isOrange focus:outline-none p-2 px-8 rounded w-full text-[14px]`}
+                    className={`border focus:outline-none ${
+                      errors.first_name &&
+                      touched.first_name &&
+                      "border-red-600"
+                    } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
                   />
+                  {errors.first_name && touched.first_name && (
+                    <span className='text-sm font-thin text-red-600'>
+                      {errors.first_name}
+                    </span>
+                  )}
                 </div>
               </div>
               <div>
@@ -50,9 +116,21 @@ const EmailRegistration = () => {
                   </span>
                   <input
                     type='text'
+                    name='last_name'
+                    id='last_name'
+                    value={values.last_name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     placeholder='Last Name'
-                    className='border focus:outline-none focus:border-isOrange p-2 px-8 rounded w-full text-[14px]'
+                    className={`border focus:outline-none ${
+                      errors.last_name && touched.last_name && "border-red-600"
+                    } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
                   />
+                  {errors.last_name && touched.last_name && (
+                    <span className='text-sm font-thin text-red-600'>
+                      {errors.last_name}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -66,9 +144,21 @@ const EmailRegistration = () => {
                 </span>
                 <input
                   type='email'
+                  name='email'
+                  id='email'
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                   placeholder='Work Email'
-                  className='border focus:outline-none focus:border-isOrange p-2 px-8 rounded w-full text-[14px]'
+                  className={`border focus:outline-none ${
+                    errors.email && touched.email && "border-red-600"
+                  } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
                 />
+                {errors.email && touched.email && (
+                  <span className='text-sm font-thin text-red-600'>
+                    {errors.email}
+                  </span>
+                )}
               </div>
             </div>
             <div className='mt-3'>
@@ -80,12 +170,31 @@ const EmailRegistration = () => {
                   <ICONS.FaUnlockAlt />
                 </span>
                 <input
-                  type='password'
+                  type={`${showPassword ? "text" : "password"}`}
+                  name='password'
+                  id='password'
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                   placeholder='Password'
-                  className='border focus:outline-none focus:border-isOrange p-2 px-8 rounded w-full text-[14px]'
+                  className={`border focus:outline-none ${
+                    errors.password && touched.password && "border-red-600"
+                  } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
                 />
-                <span className='absolute right-3 top-3 text-isGray25 cursor-pointer'>
-                  <ICONS.AiFillEyeInvisible />
+                {errors.password && touched.password && (
+                  <span className='text-sm font-thin text-red-600'>
+                    {errors.password}
+                  </span>
+                )}
+                <span
+                  className='absolute right-3 top-3 text-isGray25 cursor-pointer'
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <ICONS.AiFillEye />
+                  ) : (
+                    <ICONS.AiFillEyeInvisible />
+                  )}
                 </span>
               </div>
             </div>
@@ -94,6 +203,7 @@ const EmailRegistration = () => {
                 Create account
               </button>
             </div>
+            </form>
             <p className='text-[14px] mt-10 text-isGray'>
               By clicking the button above, you agree to our{" "}
               <Link to='#' className='text-isOrange'>
@@ -107,7 +217,8 @@ const EmailRegistration = () => {
             </p>
 
             <p className='mt-10 text-[14px] text-isGray'>
-              Already have an account? <Link to='/' className='text-isOrange'>
+              Already have an account?{" "}
+              <Link to='/' className='text-isOrange'>
                 Login
               </Link>
             </p>

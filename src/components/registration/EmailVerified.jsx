@@ -1,8 +1,25 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as IMAGES from "../../assets";
 import * as ICONS from "../../components/icons";
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { resetAccountStatus, resetStatus } from "../../redux/slice/auth/authSlice";
 
 const EmailVerified = () => {
+  const { user } = useSelector((state) => state.auth)
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname | "/";
+
+  const proceedHandler = () => {
+    if (user?.token) {
+      dispatch(resetStatus())
+      dispatch(resetAccountStatus())
+      navigate("/account/overview", { state: { from: from }, replace: true });
+    }
+  }
   return (
     <div>
       <div className='py-6 px-5 md:hidden'>
@@ -27,7 +44,7 @@ const EmailVerified = () => {
               The verified email address will be associated with your account.
               Click on the button below to continue
             </p>
-            <button className='bg-isOrange text-white p-2 px-8 text-[14px] mt-6 rounded-lg'>
+            <button className='bg-isOrange text-white p-2 px-8 text-[14px] mt-6 rounded-lg' onClick={proceedHandler}>
               Continue
             </button>
           </div>

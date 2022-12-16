@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
 import * as IMAGES from "../../assets";
 import * as ICONS from "../../components/icons";
+import { useDispatch, useSelector } from 'react-redux';
+import { setVerifyingEmail } from "../../redux/slice/auth/authSlice";
 
 const EmailConfirmation = () => {
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch()
+
+  const handleConfirmEmail = () => dispatch(setVerifyingEmail(true))
+
   return (
     <div>
       <div className='py-6 px-5 md:hidden'>
@@ -24,10 +31,10 @@ const EmailConfirmation = () => {
               Check your mailbox !
             </h2>
             <p className='text-isDarkGray text-[14px] mt-2'>
-              We’ve sent an email to seyi@zojatech.com with a an OTP to confirm
+              We’ve sent an email to {user?.email} with a an OTP to confirm
               your account. Check your inbox to activate your account.
             </p>
-            <button className='bg-isOrange text-white p-2 px-6 text-[14px] mt-6 rounded-lg'>
+            <button className='bg-isOrange text-white p-2 px-6 text-[14px] mt-6 rounded-lg' onClick={handleConfirmEmail}>
               Confirm Email
             </button>
             <p className='mt-10 text-[14px] text-isGray'>

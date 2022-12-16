@@ -2,14 +2,28 @@ import { Link } from "react-router-dom";
 import * as IMAGES from "../../assets";
 import * as ICONS from "../../components/icons";
 import OtpInput from "react-otp-input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { resetStatus, verifyOTP } from "../../redux/slice/auth/authSlice";
 
 const VerifyEmail = () => {
+  const { user, isSuccess, isError } = useSelector((state) => state.auth);
   const [OTP, setOTP] = useState("");
+
+  const dispatch = useDispatch();
 
   const handleChange = (otp) => {
     setOTP(otp);
   };
+
+  const handleSubmit = () => {
+    dispatch(verifyOTP(OTP))
+  }
+
+  // reset status
+  useEffect(() => {
+    dispatch(resetStatus())
+  },[user, isSuccess, isError])
 
   return (
     <div>
@@ -26,7 +40,7 @@ const VerifyEmail = () => {
             </h2>
             <p className='text-isDarkGray text-[14px] mt-2'>
               A four digit OTP code has been sent to your email{" "}
-              <span className='text-isOrange'>seyi@zojatech.com</span>
+              <span className='text-isOrange'>{user?.email}</span>
             </p>
             <div className='mt-4'>
               <OtpInput
@@ -53,12 +67,11 @@ const VerifyEmail = () => {
                 }}
               />
             </div>
-            <button className='bg-isOrange text-white p-2 px-6 text-[14px] mt-6 rounded-md'>
+            <button disabled={OTP.length < 4 && true} className={`${OTP.length < 4 ?"bg-orange-300" : "bg-isOrange"} text-white p-2 px-6 text-[14px] mt-6 rounded-md`} onClick={handleSubmit}>
               Confirm code
             </button>
             <p className='mt-10 text-[14px] text-isGray'>
-              Didn’t get the mail?{" "}
-              <span className='text-isOrange'>
+              Didn’t get the mail? <span className='text-isOrange'>
                 <span className='cursor-pointer'>Resend</span>
               </span>
             </p>
