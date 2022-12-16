@@ -3,12 +3,14 @@ import * as IMAGES from "../../assets";
 import * as ICONS from "../../components/icons";
 import { useDispatch, useSelector } from 'react-redux';
 import { setVerifyingEmail } from "../../redux/slice/auth/authSlice";
+import { resendOTP } from './../../redux/slice/auth/authSlice';
 
 const EmailConfirmation = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch()
 
   const handleConfirmEmail = () => dispatch(setVerifyingEmail(true))
+  const handleResendOTP = () => dispatch(resendOTP(user?.email))
 
   return (
     <div>
@@ -39,7 +41,7 @@ const EmailConfirmation = () => {
             </button>
             <p className='mt-10 text-[14px] text-isGray'>
               Didn’t get the mail? <span className='text-isOrange'>
-                <span>Resend</span>
+                <span className="cursor-pointer" onClick={handleResendOTP}>Resend</span>
               </span>
             </p>
           </div>

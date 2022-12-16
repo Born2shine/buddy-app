@@ -1,5 +1,5 @@
 import axios from "../../../api/axios";
-import { LOGIN_URL, REGISTER_URL, VERIFY_OTP_URL } from "../../../api/constant";
+import { LOGIN_URL, REGISTER_URL, RESEND_OTP_URL, VERIFY_OTP_URL } from "../../../api/constant";
 import { removeSessionToken } from "../../../utils/helpers/storage";
 import axiosPrivate from './../../../api/axiosPrivate';
 
@@ -25,6 +25,13 @@ const verifyOTP = async (OTP) => {
   return response.data;
 };
 
+// Resend OTP
+const resendOTP = async (email) => {
+  const response = await axiosPrivate.post(RESEND_OTP_URL, email);
+  console.log(response.data);
+  return response.data;
+};
+
 
 // Logout user
 const logout = async () => {
@@ -35,7 +42,8 @@ const authService = {
   login,
   logout,
   register,
-  verifyOTP
+  verifyOTP,
+  resendOTP
 };
 
 export default authService;

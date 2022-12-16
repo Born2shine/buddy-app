@@ -120,6 +120,27 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         flash("error", action.payload.message);
+      })
+      // resend OTP
+      .addCase(resendOTP.pending, (state) => {
+        state.isLoading = true;
+        flash("loading", "Resending...");
+      })
+      .addCase(resendOTP.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        // state.isSuccess = true
+        if (action.payload.success) {
+          state.user = {
+            ...state.user,
+            otp: action.payload.data.opt
+          };
+          flash("success", action.payload.message);
+        }
+      })
+      .addCase(resendOTP.rejected, (state, action) => {
+        state.isLoading = false;
+        flash("error", action.payload.message);
       });
   },
 });
