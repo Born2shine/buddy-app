@@ -1,16 +1,15 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import * as IMAGES from "../../assets";
-import * as ICONS from "../../components/icons";
-import { useDispatch, useSelector } from 'react-redux';
 import { setVerifyingEmail } from "../../redux/slice/auth/authSlice";
-import { resendOTP } from './../../redux/slice/auth/authSlice';
+import useResendOTPHandler from "../../utils/hooks/useResendOTPHandler";
+import OtpTimer from 'otp-timer'
 
 const EmailConfirmation = () => {
   const { user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch()
-
-  const handleConfirmEmail = () => dispatch(setVerifyingEmail(true))
-  const handleResendOTP = () => dispatch(resendOTP(user?.email))
+  const dispatch = useDispatch();
+  const { handleResendOTP } = useResendOTPHandler();
+  const handleConfirmEmail = () => dispatch(setVerifyingEmail(true));
 
   return (
     <div>
@@ -33,15 +32,34 @@ const EmailConfirmation = () => {
               Check your mailbox !
             </h2>
             <p className='text-isDarkGray text-[14px] mt-2'>
-              We’ve sent an email to {user?.email} with a an OTP to confirm
-              your account. Check your inbox to activate your account.
+              We’ve sent an email to {user?.email} with a an OTP to confirm your
+              account. Check your inbox to activate your account.
             </p>
-            <button className='bg-isOrange text-white p-2 px-6 text-[14px] mt-6 rounded-lg' onClick={handleConfirmEmail}>
+            <button
+              className='bg-isOrange text-white p-2 px-6 text-[14px] mt-6 rounded-lg'
+              onClick={handleConfirmEmail}
+            >
               Confirm Email
             </button>
-            <p className='mt-10 text-[14px] text-isGray'>
-              Didn’t get the mail? <span className='text-isOrange'>
-                <span className="cursor-pointer" onClick={handleResendOTP}>Resend</span>
+            <p className='mt-10 text-[14px] text-isGray flex gap-1'>
+              Didn’t get the mail?
+              <span className='text-isOrange'>
+                <span
+                  className='cursor-pointer font-serif'
+                  // onClick={() => handleResendOTP(user?.email)}
+                >
+                  <OtpTimer
+                    seconds={0}
+                    minutes={4}
+                    resend={() => handleResendOTP(user?.email)}
+                    text={" "}
+                    ButtonText='Resend'
+                    textColor={"#000000"}
+                    buttonColor={"#b82569"}
+                    background='none'
+                  />
+                  {/* Resend */}
+                </span>
               </span>
             </p>
           </div>

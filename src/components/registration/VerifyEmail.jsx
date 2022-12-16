@@ -1,14 +1,16 @@
+import { useEffect, useState } from "react";
+import OtpInput from "react-otp-input";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import * as IMAGES from "../../assets";
-import * as ICONS from "../../components/icons";
-import OtpInput from "react-otp-input";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { resetStatus, verifyOTP } from "../../redux/slice/auth/authSlice";
+import useResendOTPHandler from './../../utils/hooks/useResendOTPHandler';
+import OtpTimer from 'otp-timer'
 
 const VerifyEmail = () => {
   const { user, isSuccess, isError } = useSelector((state) => state.auth);
   const [OTP, setOTP] = useState("");
+  const { handleResendOTP } = useResendOTPHandler()
 
   const dispatch = useDispatch();
 
@@ -70,9 +72,25 @@ const VerifyEmail = () => {
             <button disabled={OTP.length < 4 && true} className={`${OTP.length < 4 ?"bg-orange-300" : "bg-isOrange"} text-white p-2 px-6 text-[14px] mt-6 rounded-md`} onClick={handleSubmit}>
               Confirm code
             </button>
-            <p className='mt-10 text-[14px] text-isGray'>
-              Didn’t get the mail? <span className='text-isOrange'>
-                <span className='cursor-pointer'>Resend</span>
+            <p className='mt-10 text-[14px] text-isGray flex gap-1'>
+              Didn’t get the mail?
+              <span className='text-isOrange'>
+                <span
+                  className='cursor-pointer font-serif'
+                  // onClick={() => handleResendOTP(user?.email)}
+                >
+                  <OtpTimer
+                    seconds={0}
+                    minutes={4}
+                    resend={() => handleResendOTP(user?.email)}
+                    text={" "}
+                    ButtonText='Resend'
+                    textColor={"#000000"}
+                    buttonColor={"#b82569"}
+                    background='none'
+                  />
+                  {/* Resend */}
+                </span>
               </span>
             </p>
           </div>
