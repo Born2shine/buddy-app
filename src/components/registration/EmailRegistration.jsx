@@ -5,7 +5,11 @@ import * as IMAGES from "../../assets";
 import * as ICONS from "../../components/icons";
 import { registrationSchema } from "../../utils/validators/schema";
 import { useDispatch, useSelector } from "react-redux";
-import { register, resetStatus, setEmail } from "../../redux/slice/auth/authSlice";
+import {
+  register,
+  resetStatus,
+  setEmail,
+} from "../../redux/slice/auth/authSlice";
 
 const EmailRegistration = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,8 +22,8 @@ const EmailRegistration = () => {
 
   // handle form submit
   const onSubmit = async (values, { resetForm, setSubmitting }) => {
-    dispatch(register(values))
-    dispatch(setEmail(values.email))
+    dispatch(register(values));
+    dispatch(setEmail(values.email));
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setSubmitting(false);
   };
@@ -47,13 +51,13 @@ const EmailRegistration = () => {
   // redirect if authenticated
   useEffect(() => {
     if (isSuccess) {
-      dispatch(setEmail(values.email))
+      dispatch(setEmail(values.email));
       if (user?.token) {
         // navigate("/account/overview", { state: { from: from }, replace: true });
       }
     }
-    dispatch(resetStatus())
-  },[user, isSuccess, isError])
+    dispatch(resetStatus());
+  }, [user, isSuccess, isError]);
 
   return (
     <div>
@@ -70,139 +74,157 @@ const EmailRegistration = () => {
           </p>
           <div className='mt-2'>
             <form onSubmit={handleSubmit}>
-            <div className='flex gap-4'>
-              <div>
-                <label
-                  htmlFor='first-name'
-                  className='text-isGray mb-[2px] block'
-                >
-                  First Name
-                </label>
-                <div className='relative'>
-                  <span className='absolute top-3 left-2 text-isGray25'>
-                    <ICONS.FaUser />
-                  </span>
-                  <input
-                    type='text'
-                    name='first_name'
-                    id='first_name'
-                    value={values.first_name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    placeholder='First Name'
-                    className={`border focus:outline-none ${
-                      errors.first_name &&
-                      touched.first_name &&
-                      "border-red-600"
-                    } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
-                  />
-                  {errors.first_name && touched.first_name && (
-                    <span className='text-sm font-thin text-red-600'>
-                      {errors.first_name}
+              <div className='flex gap-4'>
+                <div>
+                  <label
+                    htmlFor='first-name'
+                    className='text-isGray mb-[2px] block'
+                  >
+                    First Name
+                  </label>
+                  <div className='relative'>
+                    <span className='absolute top-3 left-2 text-isGray25'>
+                      <ICONS.FaUser />
                     </span>
-                  )}
+                    <input
+                      type='text'
+                      name='first_name'
+                      id='first_name'
+                      value={values.first_name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      placeholder='First Name'
+                      className={`border focus:outline-none ${
+                        errors.first_name &&
+                        touched.first_name &&
+                        "border-red-600"
+                      } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
+                    />
+                    {errors.first_name && touched.first_name && (
+                      <span className='text-sm font-thin text-red-600'>
+                        {errors.first_name}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label
+                    htmlFor='last-name'
+                    className='text-isGray mb-[2px] block'
+                  >
+                    Last Name
+                  </label>
+                  <div className='relative'>
+                    <span className='absolute top-3 left-2 text-isGray25'>
+                      <ICONS.FaUser />
+                    </span>
+                    <input
+                      type='text'
+                      name='last_name'
+                      id='last_name'
+                      value={values.last_name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      placeholder='Last Name'
+                      className={`border focus:outline-none ${
+                        errors.last_name &&
+                        touched.last_name &&
+                        "border-red-600"
+                      } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
+                    />
+                    {errors.last_name && touched.last_name && (
+                      <span className='text-sm font-thin text-red-600'>
+                        {errors.last_name}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-              <div>
+              <div className='mt-2'>
                 <label
                   htmlFor='last-name'
                   className='text-isGray mb-[2px] block'
                 >
-                  Last Name
+                  Email
                 </label>
                 <div className='relative'>
                   <span className='absolute top-3 left-2 text-isGray25'>
-                    <ICONS.FaUser />
+                    <ICONS.IoMdMail />
                   </span>
                   <input
-                    type='text'
-                    name='last_name'
-                    id='last_name'
-                    value={values.last_name}
+                    type='email'
+                    name='email'
+                    id='email'
+                    value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    placeholder='Last Name'
+                    placeholder='Work Email'
                     className={`border focus:outline-none ${
-                      errors.last_name && touched.last_name && "border-red-600"
+                      errors.email && touched.email && "border-red-600"
                     } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
                   />
-                  {errors.last_name && touched.last_name && (
+                  {errors.email && touched.email && (
                     <span className='text-sm font-thin text-red-600'>
-                      {errors.last_name}
+                      {errors.email}
+                    </span>
+                  )}
+                  {!errors.email && touched.email && (
+                    <span className='text-green-500 text-2xl absolute right-2 top-1.5'>
+                      <ICONS.BiCheck />
                     </span>
                   )}
                 </div>
               </div>
-            </div>
-            <div className='mt-2'>
-              <label htmlFor='last-name' className='text-isGray mb-[2px] block'>
-                Email
-              </label>
-              <div className='relative'>
-                <span className='absolute top-3 left-2 text-isGray25'>
-                  <ICONS.IoMdMail />
-                </span>
-                <input
-                  type='email'
-                  name='email'
-                  id='email'
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder='Work Email'
-                  className={`border focus:outline-none ${
-                    errors.email && touched.email && "border-red-600"
-                  } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
-                />
-                {errors.email && touched.email && (
-                  <span className='text-sm font-thin text-red-600'>
-                    {errors.email}
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className='mt-3'>
-              <label htmlFor='last-name' className='text-isGray mb-[2px] block'>
-                Password
-              </label>
-              <div className='relative'>
-                <span className='absolute top-3 left-2 text-isGray25'>
-                  <ICONS.FaUnlockAlt />
-                </span>
-                <input
-                  type={`${showPassword ? "text" : "password"}`}
-                  name='password'
-                  id='password'
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder='Password'
-                  className={`border focus:outline-none ${
-                    errors.password && touched.password && "border-red-600"
-                  } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
-                />
-                {errors.password && touched.password && (
-                  <span className='text-sm font-thin text-red-600'>
-                    {errors.password}
-                  </span>
-                )}
-                <span
-                  className='absolute right-3 top-3 text-isGray25 cursor-pointer'
-                  onClick={() => setShowPassword(!showPassword)}
+              <div className='mt-3'>
+                <label
+                  htmlFor='last-name'
+                  className='text-isGray mb-[2px] block'
                 >
-                  {showPassword ? (
-                    <ICONS.AiFillEye />
-                  ) : (
-                    <ICONS.AiFillEyeInvisible />
+                  Password
+                </label>
+                <div className='relative'>
+                  <div className='relative'>
+                    <span className='absolute top-3 left-2 text-isGray25'>
+                      <ICONS.FaUnlockAlt />
+                    </span>
+                    <input
+                      type={`${showPassword ? "text" : "password"}`}
+                      name='password'
+                      id='password'
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      placeholder='Password'
+                      className={`border focus:outline-none ${
+                        errors.password && touched.password && "border-red-600"
+                      } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
+                    />
+                    <span className='text-xs font-thin absolute right-0 -bottom-5 text-isGray'>
+                      15/15
+                    </span>
+                  </div>
+                  {errors.password && touched.password && (
+                    <span className='text-sm font-thin text-red-600'>
+                      {errors.password}
+                    </span>
                   )}
-                </span>
+                  <span
+                    className='absolute right-3 top-3 text-isGray25 cursor-pointer'
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <ICONS.AiFillEye />
+                    ) : (
+                      <ICONS.AiFillEyeInvisible />
+                    )}
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className='mt-8'>
-              <button className='w-full bg-isGray30 p-3 text-isGray25 focus:outline-none hover:bg-isOrange hover:text-white rounded-md text-[14px]'>
-                Create account
-              </button>
-            </div>
+              <div className='mt-9'>
+                <button className='w-full bg-isGray30 p-3 text-isGray25 focus:outline-none hover:bg-isOrange hover:text-white rounded-md text-[14px]'>
+                  Create account
+                </button>
+              </div>
             </form>
             <p className='text-[14px] mt-10 text-isGray'>
               By clicking the button above, you agree to our{" "}

@@ -9,18 +9,18 @@ import { loginSchema } from "../../utils/validators/schema";
 
 export const Login = () => {
   const { user, isError, isSuccess } = useSelector((state) => state.auth);
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname | "/";
 
   // handle form submit
   const onSubmit = async (values, { resetForm, setSubmitting }) => {
-    dispatch(login(values))
+    dispatch(login(values));
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    setSubmitting(false)
+    setSubmitting(false);
   };
 
   // initialize form inputs
@@ -48,8 +48,8 @@ export const Login = () => {
         navigate("/account/overview", { state: { from: from }, replace: true });
       }
     }
-    dispatch(resetStatus())
-  },[user, isSuccess,isError])
+    dispatch(resetStatus());
+  }, [user, isSuccess, isError]);
 
   return (
     <main className='bg-isLightGray w-screen h-screen'>
@@ -119,21 +119,27 @@ export const Login = () => {
                       Email
                     </label>
                     <div className='relative'>
-                      <span className='absolute top-3 left-2 text-isGray25'>
-                        <ICONS.IoMdMail />
+                      <div className="relative">
+                        <span className='absolute top-3 left-2 text-isGray25'>
+                          <ICONS.IoMdMail />
+                        </span>
+                        <input
+                          // type='email'
+                          placeholder='Email'
+                          name='email'
+                          id='email'
+                          value={values.email}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={`border focus:outline-none ${
+                            errors.email && touched.email && "border-red-600"
+                          } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
+                        />
+                        <span className='text-xs font-thin absolute right-0 -bottom-5 text-isGray'>
+                        15/60
                       </span>
-                      <input
-                        // type='email'
-                        placeholder='Email'
-                        name='email'
-                        id='email'
-                        value={values.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className={`border focus:outline-none ${
-                          errors.email && touched.email && "border-red-600"
-                        } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
-                      />
+                      </div>
+
                       {errors.email && touched.email && (
                         <span className='text-sm font-thin text-red-600'>
                           {errors.email}
@@ -149,32 +155,43 @@ export const Login = () => {
                       Password
                     </label>
                     <div className='relative'>
-                      <span className='absolute top-3 left-2 text-isGray25'>
-                        <ICONS.FaUnlockAlt />
-                      </span>
-                      <input
-                        type={`${showPassword ? 'text' : 'password'}`}
-                        name='password'
-                        id='password'
-                        value={values.password}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder='Password'
-                        className={`border focus:outline-none ${
-                          errors.password &&
-                          touched.password &&
-                          "border-red-600"
-                        } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
-                      />
+                      <div className='relative'>
+                        <span className='absolute top-3 left-2 text-isGray25'>
+                          <ICONS.FaUnlockAlt />
+                        </span>
+                        <input
+                          type={`${showPassword ? "text" : "password"}`}
+                          name='password'
+                          id='password'
+                          value={values.password}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          placeholder='Password'
+                          className={`border focus:outline-none ${
+                            errors.password &&
+                            touched.password &&
+                            "border-red-600"
+                          } focus:border-isOrange p-2 px-8 rounded w-full text-[14px]`}
+                        />
+                        <span className='text-xs font-thin absolute right-0 -bottom-5 text-isGray'>
+                          15/15
+                        </span>
+                      </div>
+
                       {errors.password && touched.password && (
                         <span className='text-sm font-thin text-red-600'>
                           {errors.password}
                         </span>
                       )}
-                      <span className='absolute right-3 top-3 text-isGray25 cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
-                      {
-                        showPassword ? <ICONS.AiFillEye /> : <ICONS.AiFillEyeInvisible />
-                      }
+                      <span
+                        className='absolute right-3 top-3 text-isGray25 cursor-pointer'
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? (
+                          <ICONS.AiFillEye />
+                        ) : (
+                          <ICONS.AiFillEyeInvisible />
+                        )}
                       </span>
                     </div>
                   </div>
@@ -189,10 +206,16 @@ export const Login = () => {
                   </div>
                 </form>
                 <p className='text-[14px] mt-10 text-isGray'>
-                  By clicking the button above, you agree to our <Link to='#' className='text-isOrange'> Terms of Service
-                  </Link> and <Link to='#' className='text-isOrange'>
+                  By clicking the button above, you agree to our{" "}
+                  <Link to='#' className='text-isOrange'>
+                    {" "}
+                    Terms of Service
+                  </Link>{" "}
+                  and{" "}
+                  <Link to='#' className='text-isOrange'>
                     Privacy Policy
-                  </Link>.
+                  </Link>
+                  .
                 </p>
 
                 <p className='mt-10 text-[14px] text-isGray'>
