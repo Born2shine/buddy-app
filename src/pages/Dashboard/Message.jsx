@@ -97,9 +97,10 @@ const Message = () => {
       </aside>
       <aside className={`h-screen fixed w-[90vw] md:w-[55%] md:ml-[22%] ${activeTab === 'chat' ? '' : 'hidden'} md:block`}>
         <div className="flex items-center justify-between border-b-2 pb-2">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 relative">
                 <img className="w-12 h-12 rounded-full" src={IMAGES.AVATAR_1} alt="" />
                 <h4 className="text-isDark">Lisa Roy</h4>
+                <span className="w-3 h-3 absolute bottom-[3px] -left-[8px] content-none bg-green-500 rounded-full"></span>
             </div>
             <div className="flex space-x-2 text-isGray">
                 <span><ICONS.BiSearch/></span>
