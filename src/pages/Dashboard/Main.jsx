@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import * as ICONS from "../../components/icons";
 import SideBar from "../../components/navs/SideBar";
+import { setLocalStorageData } from "../../utils/helpers/storage";
+import { chats } from './../../utils/data/chats';
 
 const Main = () => {
   const [sideNavOpen, setSideNavOpen] = useState(false);
   const handleMenuBtn = () => setSideNavOpen(!sideNavOpen);
-  
+
+  useEffect(() => {
+    setLocalStorageData('chats', chats)
+  },[])
   return (
     <main className='w-screen h-screen overflow-scroll bg-[#F5F5F5] md:flex'>
       {sideNavOpen && (

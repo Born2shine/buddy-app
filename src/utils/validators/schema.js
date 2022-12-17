@@ -35,3 +35,9 @@ export const otpSchema = yup.object().shape({
 export const resendOTPSchema = yup.object().shape({
   email: yup.string().email().required("please enter email address"),
 });
+
+export const chatSchema = yup.object().shape({
+  message_to: yup.string().required("please enter message"),
+});
+
+
