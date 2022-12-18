@@ -174,7 +174,7 @@ const Message = () => {
             </span>
           </div>
         </div>
-        <div className='mt-6 md:mx-5 max-h-[58%] overflow-y-scroll md:max-h-[78%]'>
+        <div className='mt-6 md:mx-5 max-h-[58%] overflow-y-scroll md:max-h-[60%]'>
           {/* single chat */}
 
           {loading ? (
@@ -258,8 +258,8 @@ const Message = () => {
             </div> */}
           {/* end single chat */}
 
-            <form onSubmit={handleSubmit}>
-          <div className='bg-[#D9D9D9] w-full p-3 flex space-x-3 absolute bottom-32'>
+        <form onSubmit={handleSubmit}>
+          <div className='bg-[#D9D9D9] w-full p-3 flex space-x-3 absolute bottom-[8.2rem] md:bottom-28'>
             <div className='flex relative w-[100%]'>
               <span className='speaker absolute text-[20px] top-1.5 left-2 text-isGray cursor-pointer md:top-2 md:left-3 md:text-[24px]'>
                 <ICONS.MdOutlineKeyboardVoice />
