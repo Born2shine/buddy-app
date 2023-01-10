@@ -25,7 +25,7 @@ const SideBar = ({ sideNavOpen, handleMenuBtn }) => {
       } md:-translate-x-0 md:w-[17%]`}
     >
       <span
-        className='absolute right-1 top-1 text-isOrange text-1xl md:hidden'
+        className='absolute right-1 top-1 text-isMaroon text-1xl md:hidden'
         onClick={handleMenuBtn}
       >
         <ICONS.MdClose />
@@ -39,7 +39,7 @@ const SideBar = ({ sideNavOpen, handleMenuBtn }) => {
             <li
               className={`${
                 location.pathname === PATH.DASHBOARD
-                  ? "bg-white shadow-md text-isOrange"
+                  ? "bg-white shadow-md text-isMaroon"
                   : ""
               } relative text-isGray`}
             >
@@ -48,28 +48,32 @@ const SideBar = ({ sideNavOpen, handleMenuBtn }) => {
                 className='flex items-center space-x-2 px-4 py-1 text-[15px]'
               >
                 <span>
-                  <ICONS.BiUser />
+                  <ICONS.RiDashboardFill />
                 </span>
-                <span className='font-semibold'> My Portfolio</span>
+                <span className='font-semibold'> Dashboard</span>
                 {location.pathname === PATH.DASHBOARD && (
-                  <span className='w-1 h-7 -left-6 absolute content-none bg-isOrange rounded-r-lg'></span>
+                  <span className='w-1 h-7 -left-6 absolute content-none bg-isMaroon rounded-r-lg'></span>
                 )}
               </Link>
             </li>
-            <li className='mt-6 text-gray-500 hover:bg-white hover:shadow-md hover:text-isOrange'>
+            
+            <div className="h-[70vh] overflow-y-scroll">
+
+            <li className='mt-6 text-gray-500 hover:bg-white hover:shadow-md hover:text-isMaroon relative'>
               <Link className='flex items-center space-x-2 px-4 py-1 text-[15px]'>
-                <span>
-                  <ICONS.FiUsers />
+                <span className="text-[20px]">
+                  <ICONS.TbMotorbike />
                 </span>
-                <span className='font-semibold'> My Group</span>
+                <span className='font-semibold'> Users</span>
               </Link>
+              <span className="absolute right-0 top-2"><ICONS.BiChevronRight/></span>
             </li>
             <li
               className={`${
                 location.pathname === PATH.MESSAGES
-                  ? "bg-white shadow-md text-isOrange"
+                  ? "bg-white shadow-md text-isMaroon"
                   : ""
-              } relative text-isGray mt-6 hover:bg-white hover:shadow-md hover:text-isOrange`}
+              } relative text-isGray mt-6 hover:bg-white hover:shadow-md hover:text-isMaroon`}
             >
               <Link
                 to='/account/messages'
@@ -80,11 +84,11 @@ const SideBar = ({ sideNavOpen, handleMenuBtn }) => {
                 </span>
                 <span className='font-semibold'> Messages </span>
                 {location.pathname === PATH.MESSAGES && (
-                  <span className='w-1 h-7 -left-6 absolute content-none bg-isOrange rounded-r-lg'></span>
+                  <span className='w-1 h-7 -left-6 absolute content-none bg-isMaroon rounded-r-lg'></span>
                 )}
               </Link>
             </li>
-            <li className='mt-6 text-gray-500 hover:bg-white hover:shadow-md hover:text-isOrange'>
+            <li className='mt-6 text-gray-500 hover:bg-white hover:shadow-md hover:text-isMaroon'>
               <Link className='flex items-center space-x-2 px-4 py-1 text-[15px]'>
                 <span>
                   <ICONS.AiOutlineRise />
@@ -92,7 +96,7 @@ const SideBar = ({ sideNavOpen, handleMenuBtn }) => {
                 <span className='font-semibold'>Analytics</span>
               </Link>
             </li>
-            <li className='mt-6 text-gray-500 hover:bg-white hover:shadow-md hover:text-isOrange'>
+            <li className='mt-6 text-gray-500 hover:bg-white hover:shadow-md hover:text-isMaroon'>
               <Link className='flex items-center space-x-2 px-4 py-1 text-[15px]'>
                 <span>
                   <ICONS.BiDollarCircle />
@@ -100,7 +104,10 @@ const SideBar = ({ sideNavOpen, handleMenuBtn }) => {
                 <span className='font-semibold'> Pack </span>
               </Link>
             </li>
-            <li className='mt-6 text-gray-500 hover:bg-white hover:shadow-md hover:text-isOrange'>
+
+           
+
+            <li className='mt-6 text-gray-500 hover:bg-white hover:shadow-md hover:text-isMaroon'>
               <Link className='flex items-center space-x-2 px-4 py-1 text-[15px]'>
                 <span>
                   <ICONS.FiSettings />
@@ -108,18 +115,21 @@ const SideBar = ({ sideNavOpen, handleMenuBtn }) => {
                 <span className='font-semibold'> Settings </span>
               </Link>
             </li>
+            </div>
+
+
           </ul>
           <div className='user-info absolute bottom-10 shadow-lg w-[80%] p-5 text-center rounded-lg'>
-            <img
+            {/* <img
               className='w-10 h-10 rounded-full right-0 left-0 m-auto -mt-10'
               src={IMAGES.AVATAR_2}
               alt=''
-            />
-            <h4 className='font-semibold capitalize'>{`${(user?.first_name && user?.last_name) ? (user?.first_name + ' ' + user?.last_name) : 'John Doe'}`}</h4>
-            <span className='text-[14px] text-isDarkGray'>Influencer</span>
+            /> */}
+            {/* <h4 className='font-semibold capitalize'>{`${(user?.first_name && user?.last_name) ? (user?.first_name + ' ' + user?.last_name) : 'John Doe'}`}</h4>
+            <span className='text-[14px] text-isDarkGray'>Influencer</span> */}
             <button
               onClick={logoutHandler}
-              className='flex items-center justify-center space-x-1 bg-[rgba(255,134,0,0.16)] p-1 text-isOrange rounded-lg w-full text-center mt-3 text-[14px]'
+              className='flex items-center justify-center space-x-1 bg-[rgba(255,134,0,0.16)] p-1 text-isMaroon rounded-lg w-full text-center mt-3 text-[14px]'
             >
               <span>
                 <ICONS.FaSignOutAlt />

@@ -17,7 +17,10 @@ module.exports = {
         'isOrange': '#FF8600',
         'isDarkGray': '#84919A',
         'isLightGray' : '#F8FAFC', 
-        'isDark' : '#3B3B45',       
+        'isLightGray-1': "#FAFAFA",
+        'isDark' : '#3B3B45',      
+        'isDark-1' : "#2D2D2D", 
+        'isMaroon' : "#9A0536"
       }
     },
   },

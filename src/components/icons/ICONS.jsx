@@ -3,13 +3,15 @@ import { BsCheck2, BsLinkedin, BsPencil, BsEmojiSmile } from 'react-icons/bs'
 import { FaUser, FaUnlockAlt, FaRegComment, FaRegEnvelope, FaSignOutAlt, FaFacebookF } from 'react-icons/fa'
 import { IoMdMail } from "react-icons/io"
 import { AiFillEyeInvisible, AiFillEye, AiOutlinePlus } from "react-icons/ai"
-import { BiUser, BiDollarCircle, BiSearch, BiCheck, BiCamera} from "react-icons/bi"
+import { BiUser, BiDollarCircle, BiSearch, BiCheck, BiCamera, BiChevronDown,BiChevronRight} from "react-icons/bi"
 import { AiOutlineRise, AiOutlineUserAdd, AiTwotoneHeart, AiOutlineArrowDown, AiOutlineArrowUp, AiFillLinkedin, AiOutlineCamera } from "react-icons/ai"
 import { MdNotifications, MdMenu, MdClose, MdPhone, MdOutlineKeyboardVoice } from "react-icons/md"
 import { TiArrowForward } from 'react-icons/ti'
 import {MdMessage } from "react-icons/md"
 import { HiPaperAirplane } from "react-icons/hi"
-import { ImAttachment } from "react-icons/im" 
+import { ImAttachment } from "react-icons/im"
+import { RiDashboardFill } from "react-icons/ri"
+import { TbMotorbike } from "react-icons/tb";
 
 export {
   BsEmojiSmile,
@@ -50,6 +52,11 @@ export {
   BsLinkedin,
   MdMenu,
   MdClose,
-  BiCheck
+  BiCheck,
+
+  RiDashboardFill,
+  TbMotorbike,
+  BiChevronDown,
+  BiChevronRight
 };
 

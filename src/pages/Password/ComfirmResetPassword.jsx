@@ -5,9 +5,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as IMAGES from "../../assets";
 import * as ICONS from "../../components/icons";
 import { login, resetStatus } from "../../redux/slice/auth/authSlice";
-import { loginSchema } from "../../utils/validators/schema";
+import { confirmPasswordSchema, loginSchema } from "../../utils/validators/schema";
 
-export const Login = () => {
+export const ComfirmResetPassword = () => {
   const { user, isError, isSuccess } = useSelector((state) => state.auth);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -34,10 +34,10 @@ export const Login = () => {
     isSubmitting,
   } = useFormik({
     initialValues: {
-      email: "",
+      confirm_password: "",
       password: "",
     },
-    validationSchema: loginSchema,
+    validationSchema: confirmPasswordSchema,
     onSubmit,
   });
 
@@ -69,41 +69,14 @@ export const Login = () => {
               <div className="grid place-content-center mb-4">
               <img src={IMAGES.LOGO} alt="" />
               </div>
-              <h2 className='text-2xl font-semibold'>Welcome to Mouve </h2>
+              <h2 className='text-2xl font-semibold'>Reset Password </h2>
                 <p className='text-[14px] text-isGray py-2'>
-                  Login
+                    Please enter the new password details
                 </p>
              </div>
               <div className='mt-2'>
                 <form onSubmit={handleSubmit}>
-                  <div className='mt-2'>
-                    <div className='relative'>
-                      <div className="relative">
-                        <span className='absolute top-3 left-2 text-isGray25'>
-                          <ICONS.IoMdMail />
-                        </span>
-                        <input
-                          // type='email'
-                          placeholder='Email'
-                          name='email'
-                          id='email'
-                          value={values.email}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          className={`border focus:outline-none ${
-                            errors.email && touched.email && "border-red-600"
-                          } focus:border-isMaroon p-2 px-8 rounded w-full text-[14px]`}
-                        />
-                      </div>
-
-                      {errors.email && touched.email && (
-                        <span className='text-sm font-thin text-red-600'>
-                          {errors.email}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <div className='mt-3'>
+                <div className='mt-3'>
                     <div className='relative'>
                       <div className='relative'>
                         <span className='absolute top-3 left-2 text-isGray25'>
@@ -142,20 +115,59 @@ export const Login = () => {
                       </span>
                     </div>
                   </div>
+                  <div className='mt-3'>
+                    <div className='relative'>
+                      <div className='relative'>
+                        <span className='absolute top-3 left-2 text-isGray25'>
+                          <ICONS.FaUnlockAlt />
+                        </span>
+                        <input
+                          type={`${showPassword ? "text" : "password"}`}
+                          name='confirm_password'
+                          id='confirm_password'
+                          value={values.confirm_password}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          placeholder='Confirm confirm_password'
+                          className={`border focus:outline-none ${
+                            errors.confirm_password &&
+                            touched.confirm_password &&
+                            "border-red-600"
+                          } focus:border-isMaroon p-2 px-8 rounded w-full text-[14px]`}
+                        />
+                      </div>
+
+                      {errors.confirm_password && touched.confirm_password && (
+                        <span className='text-sm font-thin text-red-600'>
+                          {errors.confirm_password}
+                        </span>
+                      )}
+                      <span
+                        className='absolute right-3 top-3 text-isGray25 cursor-pointer'
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? (
+                          <ICONS.AiFillEye />
+                        ) : (
+                          <ICONS.AiFillEyeInvisible />
+                        )}
+                      </span>
+                    </div>
+                  </div>
                   <div className='mt-8'>
                     <button
                       type='submit'
                       className='w-full bg-isMaroon p-3 text-white hover:bg-pink-900 hover:text-white rounded-md text-[14px]'
                       disabled={isSubmitting && true}
                     >
-                      {isSubmitting ? "Loading..." : "Login"}
+                      {isSubmitting ? "Loading..." : "Update"}
                     </button>
                   </div>
                 </form>
 
                 <p className='mt-10 text-[14px] text-isGray'>
-                Forgot Password? <Link to='/forgot-password' className='text-isMaroon'>
-                    Reset Password
+                Already have an account? <Link to='/' className='text-isMaroon'>
+                    Login
                   </Link>
                 </p>
               </div>

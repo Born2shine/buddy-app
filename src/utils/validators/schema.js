@@ -8,6 +8,11 @@ export const loginSchema = yup.object().shape({
   password: yup.string().min(6).required("please enter password"),
 });
 
+export const confirmPasswordSchema = yup.object().shape({
+  password: yup.string().min(6).required("please enter password"),
+  confirm_password: yup.string().required("please enter password again"),
+});
+
 export const registrationSchema = yup.object().shape({
   first_name: yup
     .string()

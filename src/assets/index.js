@@ -8,9 +8,12 @@ import AVATAR_3 from "../assets/images/users/avatar-3.jpg"
 import CIRCLE_LAYER from "../assets/images/circle-layer.svg"
 import GRAPH from "../assets/images/graph.png"
 import LINE_GRAPH from "../assets/images/line-graph.png"
+import LOGIN_BG from "../assets/images/bg/login-bg.png"
+
 
 
 export {
+    LOGIN_BG,
     GOOGLE_ICON,
     LOGO,
     MAIL_SENT_ICON,
